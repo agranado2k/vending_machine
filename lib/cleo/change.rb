@@ -1,5 +1,11 @@
 module Cleo
   class Change
+    attr_accessor :name, :value, :quantity
 
+    def initialize(params)
+      @name = params[:name]
+      @value = params[:value]
+      @quantity = params[:quantity]
+    end
   end
 end
