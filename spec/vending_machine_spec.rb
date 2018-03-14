@@ -9,13 +9,6 @@ describe Cleo::VendingMachine do
         expect(subject.product_list.size).to eq(3)
       end
 
-      describe Cleo::Product do
-        context 'when create' do
-          it { expect(subject.name).to eq(params[:name]) }
-          it { expect(subject.price).to eq(params[:price]) }
-          it { expect(subject.quantity).to eq(params[:quantity]) }
-        end
-      end
     end
 
     context 'load changes' do
