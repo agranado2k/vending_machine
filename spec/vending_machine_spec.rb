@@ -1,22 +1,23 @@
-require 'rspec'
-require_relative '../lib/cleo'
+require 'rspec_helper'
 
 describe Cleo::VendingMachine do
   context 'when init' do
+    before(:each) { subject.init }
+
     context 'load products' do
       it 'product list' do
-        expect(subject.product_list.size).to eq(3)
+        expect(subject.products.size).to eq(3)
       end
     end
 
     context 'load changes' do
       it 'change list' do
-        expect(subject.change_list.size).to eq(8)
+        expect(subject.changes.size).to eq(8)
       end
     end
   end
 
-  describe Cleo::Purchase do
+  xdescribe Cleo::Purchase do
     context 'purchase process' do
       context 'choose a product' do
         it { expect(subject.product).to_not be_nil }

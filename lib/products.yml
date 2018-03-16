@@ -1,0 +1,10 @@
+products:
+  - name: 'Product 1'
+    price: 2.55
+    quantity: 12
+  - name: 'Product 2'
+    price: 13.70
+    quantity: 2
+  - name: 'Product 3'
+    price: 5.60
+    quantity: 20
