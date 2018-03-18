@@ -1,0 +1,19 @@
+changes:
+  - name: '1p'
+    value: 0.01
+    quantity: 100
+  - name: '5p'
+    price: 0.05
+    quantity: 50
+  - name: '10p'
+    price: 0.10
+    quantity: 20
+  - name: '50p'
+    price: 0.50
+    quantity: 10
+  - name: '£1'
+    price: 3
+    quantity: 20
+  - name: '£2'
+    price: 2
+    quantity: 2

@@ -9,4 +9,10 @@ describe Cleo::Change do
     it { expect(subject.value).to eq(params[:value]) }
     it { expect(subject.quantity).to eq(params[:quantity]) }
   end
+
+  context 'when load products' do
+    subject { described_class.load }
+
+    it { expect(subject.size).to eq(6) }
+  end
 end
