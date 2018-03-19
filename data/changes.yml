@@ -2,12 +2,18 @@ changes:
   - name: '1p'
     value: 0.01
     quantity: 100
+  - name: '2p'
+    value: 0.02
+    quantity: 60
   - name: '5p'
     price: 0.05
     quantity: 50
   - name: '10p'
     price: 0.10
     quantity: 20
+  - name: '20p'
+    price: 0.20
+    quantity: 10
   - name: '50p'
     price: 0.50
     quantity: 10
