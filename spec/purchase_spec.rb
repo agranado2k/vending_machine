@@ -10,5 +10,18 @@ describe Cleo::Purchase do
   it { expect(subject.paid).to eq(0) }
   it { expect(subject.balance).to eq(product.price*-1) }
   it { expect(subject.change).to eq(0) }
-  it { expect(subject.change_list).to be_empty }
+
+  context 'insert money' do
+    let(:money) { double('Money', value: 0.1) }
+    before(:each) { subject.insert money }
+
+    it { expect(subject.paid).to eq(money.value) }
+
+    context 'more times' do
+    let(:money_1) { double('Money 1', value: 1) }
+      before(:each) { subject.insert money_1 }
+
+      it { expect(subject.paid).to eq(money.value + money_1.value) }
+    end
+  end
 end
