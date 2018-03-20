@@ -1,12 +1,11 @@
 module Cleo
-  class Change
+  class Change < Money
     extend Loadable
 
-    attr_accessor :name, :value, :quantity
+    attr_accessor :quantity
 
     def initialize(params)
-      @name = params[:name]
-      @value = params[:value]
+      super(params)
       @quantity = params[:quantity]
     end
   end

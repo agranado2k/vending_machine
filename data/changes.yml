@@ -6,20 +6,20 @@ changes:
     value: 0.02
     quantity: 60
   - name: '5p'
-    price: 0.05
+    value: 0.05
     quantity: 50
   - name: '10p'
-    price: 0.10
+    value: 0.10
     quantity: 20
   - name: '20p'
-    price: 0.20
+    value: 0.20
     quantity: 10
   - name: '50p'
-    price: 0.50
+    value: 0.50
     quantity: 10
   - name: '£1'
-    price: 3
+    value: 3
     quantity: 20
   - name: '£2'
-    price: 2
+    value: 2
     quantity: 2
