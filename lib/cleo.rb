@@ -3,6 +3,7 @@ require 'json'
 
 require 'cleo/hash'
 require 'cleo/loadable'
+require 'cleo/money'
 require 'cleo/change'
 require 'cleo/product'
 require 'cleo/purchase'
