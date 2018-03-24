@@ -13,12 +13,12 @@ changes:
     name: '10p'
   - value: 20
     quantity: 10
-    name: '10p'
+    name: '20p'
   - value: 50
     quantity: 10
     name: '50p'
   - value: 100
-    quantity: 20
+    quantity: 5
     name: '£1'
   - value: 200
     quantity: 2

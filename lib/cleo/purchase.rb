@@ -1,14 +1,15 @@
 module Cleo
   class Purchase
-    attr_accessor :product, :money
+    attr_accessor :product, :money, :calculator
 
     def initialize(params)
+      @calculator = params[:calculator]
       @product = params[:product]
       @money = []
     end
 
     def total
-      product.price
+      product.value
     end
 
     def balance
@@ -20,12 +21,16 @@ module Cleo
     end
 
     def paid
-      money.reduce(0){|r, m| r += m.value}
+      money.reduce(Money.new(0, CURRENCY)){|r, m| r += m}
     end
 
     def change
-      return 0 if paid <= total
+      return Money.new(0, CURRENCY) if paid <= total
       paid - total
+    end
+
+    def changes
+      calculator.calculate_changes(change)
     end
 
     def message
