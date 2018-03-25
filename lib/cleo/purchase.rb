@@ -18,6 +18,7 @@ module Cleo
 
     def insert(money)
       @money << money
+      product.quantity -= 1 if paid > total
     end
 
     def paid

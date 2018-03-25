@@ -1,17 +1,17 @@
 module Cleo
   class UserInterface
-    def template_index(products, product_error)
-      output = header
+    def template_index(products, changes, product_error)
+      output = header(changes)
       output += select_product_by_code
-      output += product_table(products)
+      output += product_table(products, false)
       output += invalide_product_code if product_error
       output += choose_product
     end
 
-    def template_checkout(purchase, invalid_money = false)
-      output = header
+    def template_checkout(purchase, changes, invalid_money = false)
+      output = header(changes)
       output += you_are_bying
-      output += product_table([purchase.product])
+      output += product_table([purchase.product], true)
       output += checkout(purchase)
       output += invalid_money_id if invalid_money
       output += checkout_footer(purchase)
@@ -19,29 +19,29 @@ module Cleo
     end
 
 
-    def header
+    def header(changes)
       <<~EOT
       #############################################
       ############ Vending Machine ################
       #############################################
-      Changes: [2x£2,5x£1,10x50p,10x20p,20x10p,50x5p,60x2p,100x1p]
+      Changes: [#{changes.map{|c| "#{c.quantity}x#{c.name}"}.reverse.join(',')}]
       (press r any time to reload system)
 
       EOT
     end
 
-    def product_table(products)
-      rows = products.map{|p| product_line(p)}.join("\n--------------------------------------\n")
+    def product_table(products, purchasing)
+      rows = products.map{|p| product_line(p, purchasing)}.join("\n--------------------------------------\n")
       <<~EOT
-      code |  product  | price | quantity
+      code |  product  | price#{ !purchasing ? " | quantity" : ""}
       --------------------------------------
       #{rows}
 
       EOT
     end
 
-    def product_line(p)
-      "  #{p.code}  | #{p.name} | #{p.price} | #{p.quantity}"
+    def product_line(p, purchasing)
+      "  #{p.code}  | #{p.name} | #{p.price}#{ !purchasing ? " | #{p.quantity}" : "" }"
     end
 
     def checkout(purchase)

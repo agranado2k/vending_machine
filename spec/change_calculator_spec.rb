@@ -3,7 +3,8 @@ require 'rspec_helper'
 describe Cleo::ChangeCalculator do
   subject { described_class.new(vm_changes) }
   let(:ui) { double('UserInterface') }
-  let(:vm_changes) { Cleo::VendingMachine.new(ui).init.changes }
+  let(:io) { double('IOInterface') }
+  let(:vm_changes) { Cleo::VendingMachine.new(ui, io).init.changes }
 
   context 'when the change is 1x£1' do
     let(:change_value) { Money.new(100, Cleo::CURRENCY) }

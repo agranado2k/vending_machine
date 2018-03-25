@@ -2,7 +2,8 @@ require 'rspec_helper'
 
 describe Cleo::VendingMachine do
   let(:ui) { Cleo::UserInterface.new }
-  subject { described_class.new(ui) }
+  let(:io) { double('IOInterface') }
+  subject { described_class.new(ui ,io) }
 
   context 'when init' do
     before(:each) { subject.init }
@@ -21,7 +22,11 @@ describe Cleo::VendingMachine do
   end
 
   context 'Start Vending Mahine' do
-    before { subject.start }
+    before do
+      subject.init
+      subject.start
+    end
+
     let(:message) do
       <<~EOT
       #############################################
@@ -50,6 +55,7 @@ describe Cleo::VendingMachine do
     context 'Chose valid product' do
       let(:product_2_id) { 2 }
       before do
+        subject.init
         subject.start
         subject.purchase_process(product_2_id)
       end
@@ -62,9 +68,9 @@ describe Cleo::VendingMachine do
         (press r any time to reload system)
 
         *** You're buying the product:***
-        code |  product  | price | quantity
+        code |  product  | price
         --------------------------------------
-          2  | Product 2 | £13.70 | 2
+          2  | Product 2 | £13.70
 
         Checkout:
         total: £13.70
@@ -83,6 +89,7 @@ describe Cleo::VendingMachine do
     context 'Chose invalid product' do
       let(:invalid_product_id) { 5 }
       before do
+        subject.init
         subject.start
         subject.purchase_process(invalid_product_id)
       end
@@ -117,6 +124,7 @@ describe Cleo::VendingMachine do
         let(:product_2_id) { 2 }
         let(:invalid_money_id) { '2' }
         before do
+          subject.init
           subject.start
           subject.purchase_process(product_2_id)
           subject.insert_money(invalid_money_id)
@@ -130,9 +138,9 @@ describe Cleo::VendingMachine do
           (press r any time to reload system)
 
           *** You're buying the product:***
-          code |  product  | price | quantity
+          code |  product  | price
           --------------------------------------
-            2  | Product 2 | £13.70 | 2
+            2  | Product 2 | £13.70
 
           Checkout:
           total: £13.70
@@ -154,6 +162,7 @@ describe Cleo::VendingMachine do
         let(:product_2_id) { 2 }
         let(:money_id) { '£2' }
         before do
+          subject.init
           subject.start
           subject.purchase_process(product_2_id)
           subject.insert_money(money_id)
@@ -171,9 +180,9 @@ describe Cleo::VendingMachine do
           (press r any time to reload system)
 
           *** You're buying the product:***
-          code |  product  | price | quantity
+          code |  product  | price
           --------------------------------------
-            2  | Product 2 | £13.70 | 2
+            2  | Product 2 | £13.70
 
           Checkout:
           total: £13.70
@@ -219,9 +228,9 @@ describe Cleo::VendingMachine do
           (press r any time to reload system)
 
           *** You're buying the product:***
-          code |  product  | price | quantity
+          code |  product  | price
           --------------------------------------
-            2  | Product 2 | £13.70 | 2
+            2  | Product 2 | £13.70
 
           Checkout:
           total: £13.70
@@ -259,13 +268,13 @@ describe Cleo::VendingMachine do
           #############################################
           ############ Vending Machine ################
           #############################################
-          Changes: [2x£2,5x£1,10x50p,10x20p,20x10p,50x5p,60x2p,100x1p]
+          Changes: [2x£2,5x£1,10x50p,9x20p,19x10p,50x5p,60x2p,100x1p]
           (press r any time to reload system)
 
           *** You're buying the product:***
-          code |  product  | price | quantity
+          code |  product  | price
           --------------------------------------
-            2  | Product 2 | £13.70 | 2
+            2  | Product 2 | £13.70
 
           Checkout:
           total: £13.70
@@ -288,7 +297,7 @@ describe Cleo::VendingMachine do
 
   context 'Purchase process' do
     let(:value) { Money.new(275, Cleo::CURRENCY) }
-    let(:product) { double('Product', value: value, price: value.format) }
+    let(:product) { double('Product', value: value, price: value.format, quantity: 1, 'quantity='.to_sym => 1) }
     let(:params) { { product: product } }
 
     subject { Cleo::Purchase.new params }

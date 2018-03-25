@@ -1,0 +1,5 @@
+#!/usr/bin/ruby
+
+require_relative '../lib/cleo'
+
+Cleo.run_vending_machine
